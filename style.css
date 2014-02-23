@@ -8,7 +8,9 @@ h1 {
 }
 
 img{
-	height:30%;
+	max-height: 30%;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .l {
