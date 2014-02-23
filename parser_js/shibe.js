@@ -2,13 +2,13 @@ var BLANK_LINE_CHANCE = 0.5;
 var PHRASE_DENSITY = 0.1;
 var WOW_DENSITY = 0.05;
 var PHRASES_TO_USE = ['**such [NN]','** so much [NN]','*very [NN]','*much [VB]', '*so [JJ]'];
-var SENTENCE = "This is a test. I hope this works because I will be very mad.";
+//var SENTENCE = "This is a test. I hope this works because I will be very mad.";
 
 var lexer = new Lexer();
 var posTagger = new POSTagger();
-var lexWords = function(){
-	var inEl = SENTENCE;
-	var words = lexer.lex(inEl.value);
+var lexWords = function(sentence){
+	var inEl = sentence;
+	var words = lexer.lex(inEl);
 	return posTagger.tag(words);
 };
 var objToSortedArray = function(obj){
@@ -83,22 +83,20 @@ var getRandomPhrase = function(words, phrases){
 	return chosenPhrase;
 };
 var createShibe = function(words, phrases){
-	var outEl = document.getElementById('output');
-
-	outEl.value = "";
+	outEl = "";
 
 	wow = WOW_DENSITY;
 	phraseDensity = PHRASE_DENSITY;
 	blankChance = BLANK_LINE_CHANCE;
-
-	for(var line = 0; line < outEl.rows; line++){
+/**
+	for(var line = 0; line < 5; line++){
 		if(Math.random() < blankChance){
 			//blank line
-			outEl.value += "    \n";
+			outEl += "    \n";
 		} else{
 			var len = 4;
-			outEl.value += "    ";
-			while(len < outEl.cols){
+			outEl += "    ";
+			while(len < 5){
 				var rand = Math.random();
 				var toWrite = "";
 				if(rand < phraseDensity){
@@ -106,17 +104,33 @@ var createShibe = function(words, phrases){
 				} else if(rand < wow + phraseDensity){
 					toWrite = "wow"
 				}
-				if(len + toWrite.length < outEl.cols){
-					outEl.value += toWrite;
+				if(len + toWrite.length < 5){
+					outEl += toWrite;
 					len += toWrite.length;
 				}
 				var spaces = parseInt(Math.random() * 10) + 5;
 				for(var f = 0; f < spaces; f++){
-					outEl.value += " "
+					outEl += " "
 				}
 				len += spaces;
 			}
-			outEl.value += "\n";
+			outEl += "\n";
+		}
+	}**/
+	var out = "";
+	var temp = "";
+	var countControl = 0;
+	for(var line = 0; line < 5; line++){
+		temp = getRandomPhrase(words, phrases) + "\n";
+		if (!temp.match(/undefined/)){
+			out += temp;
+		}
+		else line--;
+		countControl++;
+		if( countControl > 20){
+			line += 6;
+			out = "Such need\nVery more\nSo words\nMuch to process\nwow\n";
 		}
 	}
+	return out
 };

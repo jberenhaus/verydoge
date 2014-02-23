@@ -1,7 +1,7 @@
 # https://github.com/pascalj/doge
 
 require 'RMagick'
-
+#require 'Random'
 class Doge
   attr_reader :image
 
@@ -17,17 +17,20 @@ class Doge
     horizontal_padding = @image.columns * 0.1
     horizontal_top = @image.columns - horizontal_padding - metrics.width
     height = metrics.height.round + 5 #padding
-    @image.annotate(text, 0,0, Random.rand(horizontal_padding..horizontal_top), y_for_height(height), term)
+    @image.annotate(text, 0,0, (horizontal_padding.round..horizontal_top.round).to_a.choice.round, y_for_height(height), term)
+    #@image.annotate(text, 0,0, Random.rand(horizontal_padding..horizontal_top), y_for_height(height), term)
     self
   end
 
-  [:such, :wow, :so, :much, :amaze, :very].each do |word|
-    define_method(word) { |text = ''| wuff(word.to_s  + " " + text) }
-  end
+  #[:such, :wow, :so, :much, :amaze, :very].each do |word|
+  #  define_method(word) { |text = ''| wuff(word.to_s  + " " + text) }
+  #end
+
 
 private
   def random_rgb
-    "rgb(#{Random.rand(0..255)}, #{Random.rand(0..255)}, #{Random.rand(0..255)})"
+    "rgb(#{(0..255).to_a.choice}, #{(0..255).to_a.choice}, #{(0..255).to_a.choice})"
+    #"rgb(#{Random.rand(0..255)}, #{Random.rand(0..255)}, #{Random.rand(0..255)})"
   end
 
   def image_text
@@ -45,7 +48,8 @@ private
     vertical_top = @image.rows - vertical_padding
     row = 0
     begin
-      row = Random.rand(vertical_padding..vertical_top).round
+      row = (vertical_padding.round..vertical_top.round).to_a.choice.round
+      #row = Random.rand(vertical_padding..vertical_top).round
     end while row_occupied?(row, height)
     @occupied << (row..(row + height))
     row
