@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'v8'
-require 'doge'
+require './doge.rb'
 
 def translate(input)
+  input = input.gsub("\n", " ")
   cxt = V8::Context.new
   cxt.load("parser_js/lexer.js")
   cxt.load("parser_js/POSTagger.js")

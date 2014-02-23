@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'twilio-ruby'
 require 'sinatra'
-require 'translate.rb'
+require './translate.rb'
 require '../account_info'
 
 include AccountInfo
@@ -38,20 +38,25 @@ get '/' do
     File.rename(new_file, original_file)
 
     if sCountry == "CA"
-	File.foreach('counter') do |i|
+	File.open('./counter') do |i|
     		@client = Twilio::REST::Client.new AccountInfo::SID, AccountInfo::TOKEN
-		puts "http://verydoge.org/dogepics/doge#{(i.chomp.to_i)-1}.jpg"
+		currline = i.readline
+		puts "http://verydoge.org/dogepics/doge#{(currline.chomp.to_i)-1}.jpg"
 		message = @client.account.messages.create(:body => "",
         		:to => sender,
 			:from => myNumber,
-			:media_url => "http://verydoge.org/dogepics/doge#{(i.chomp.to_i)-1}.jpg")
+			:media_url => "http://verydoge.org/dogepics/doge#{(currline.chomp.to_i)-1}.jpg")
 		puts message.to 
 	end
     else
+	File.open('./counter') do |i|
     	twiml = Twilio::TwiML::Response.new do |r|
-    		r.Message translated
+    		#r.Message translated
+		r.Message "#{translated}\nhttp://verydoge.org/dogepics/doge#{(i.readline.chomp.to_i)-1}.jpg"
     	end
     twiml.text
     end
+	end
   end
 end
+

@@ -1,7 +1,7 @@
 var BLANK_LINE_CHANCE = 0.5;
 var PHRASE_DENSITY = 0.1;
 var WOW_DENSITY = 0.05;
-var PHRASES_TO_USE = ['**such [NN]','** so much [NN]','*very [NN]','*much [VB]', '*so [JJ]'];
+var PHRASES_TO_USE = ['**such [NN]','* so much [NN]','*very [NN]','*much [VB]', '**so [JJ]', '*many [NN]', '*so [VB]', '*much [NN]'];
 //var SENTENCE = "This is a test. I hope this works because I will be very mad.";
 
 var lexer = new Lexer();
@@ -129,8 +129,8 @@ var createShibe = function(words, phrases){
 		countControl++;
 		if( countControl > 20){
 			line += 6;
-			out = "Such need\nVery more\nSo words\nMuch to process\nwow\n";
+			out = "Such need\nVery more\nSo words\nMuch to process\n";
 		}
 	}
-	return out
+	return out + "wow\n";
 };
