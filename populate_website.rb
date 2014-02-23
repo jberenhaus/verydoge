@@ -3,7 +3,13 @@ flag = 1
 count = 20
 countup = 0
 align = "left"
-header = "<h1>Text (613) 706-DOGE(3643) (CA) or (631) 319-DOGE(3643) (US)</h1>"
+header = "<meta http-equiv=\"Pragma\" content=\"no-cache\">
+<SCRIPT LANGUAGE=JavaScript>
+function now(){
+    window.location.reload(true);
+}
+</SCRIPT>
+<h1>Text (613) 706-DOGE(3643) (CA) or (631) 319-DOGE(3643) (US)</h1>"
 divleft = "<div class='l'>"
 divright = "<div class='r'>"
 input = "<link href='style.css' rel='stylesheet' type='text/css' />"

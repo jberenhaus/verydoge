@@ -37,7 +37,7 @@ private
     text = Magick::Draw.new
     text.gravity = Magick::NorthWestGravity
     text.pointsize = 50
-    text.font_family = "Times New Roman"
+    text.font_family = "Comic Sans MS"
     text.font_weight = Magick::BoldWeight
     text.fill = random_rgb
     text
