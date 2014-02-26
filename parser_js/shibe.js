@@ -1,7 +1,28 @@
 var BLANK_LINE_CHANCE = 0.5;
 var PHRASE_DENSITY = 0.1;
 var WOW_DENSITY = 0.05;
-var PHRASES_TO_USE = ['**such [NN]','* so much [NN]','*very [NN]','*much [VB]', '**so [JJ]', '*many [NN]', '*so [VB]', '*much [NN]'];
+var WOW_PHRASES = ['wow', 'amaze','excite'];
+var PHRASES_TO_USE = [
+'**such [NN]',
+'*such [CD]',
+'**very [NN]',
+'**what [NN]',
+'* so much [NN]',
+'**much [VB]',
+'**much [JJ]',
+'**much [JJR]',
+'**much [JJS]',
+// '*much [NN]',
+'*many [NN]',
+'*many [MD]',
+'**so [JJ]',
+'*so [VB]',
+'*so [VBD]',
+'*so [VBG]',
+'*so [VBN]',
+'*so [VBP]',
+'*so [VBZ]',
+];
 //var SENTENCE = "This is a test. I hope this works because I will be very mad.";
 
 var lexer = new Lexer();
@@ -120,17 +141,26 @@ var createShibe = function(words, phrases){
 	var out = "";
 	var temp = "";
 	var countControl = 0;
+	var used_words = [];
 	for(var line = 0; line < 5; line++){
 		temp = getRandomPhrase(words, phrases) + "\n";
-		if (!temp.match(/undefined/)){
+		if ((!temp.match(/undefined/)) && used_words.indexOf(temp) == -1){
+			used_words.push(temp);
 			out += temp;
+		} else {
+			line--;
 		}
-		else line--;
 		countControl++;
 		if( countControl > 20){
 			line += 6;
 			out = "Such need\nVery more\nSo words\nMuch to process\n";
 		}
 	}
-	return out + "wow\n";
+
+	var random_num_wow = Math.random()*WOW_PHRASES.length;
+	for(var line = 0; line < random_num_wow; line++){
+		out += WOW_PHRASES[Math.floor(Math.random()*WOW_PHRASES.length)] + "\n";
+	}
+
+	return out;
 };

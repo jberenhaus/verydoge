@@ -4,12 +4,8 @@ count = 20
 countup = 0
 align = "left"
 header = "<meta http-equiv=\"Pragma\" content=\"no-cache\">
-<SCRIPT LANGUAGE=JavaScript>
-function now(){
-    window.location.reload(true);
-}
-</SCRIPT>
-<h1>Text (613) 706-DOGE(3643) (CA) or (631) 319-DOGE(3643) (US)</h1>"
+<h1>Text (613) 706-DOGE(3643) (CA) or (631) 319-DOGE(3643) (US)</h1>\n
+<h6>Dogecoin address = DFC1C4cBF1HLWpuFzvvTvRuzafyH8TVRCN"
 divleft = "<div class='l'>"
 divright = "<div class='r'>"
 input = "<link href='style.css' rel='stylesheet' type='text/css' />"
@@ -18,9 +14,9 @@ File.open('./web_log', 'r').each_line { |readline|
 	File.foreach('counter') do |i|
 		if count > 0 
 			if flag == 1 #if it is the first time, it should match From
-				input = "#{header}#{divright}<pre>#{input}#{readline}"
+				input = "#{header}#{divright}<pre>#{input}#{countup+1})<br/>#{readline}"
 				flag = 0
-	       		elsif /From:.+$/.match(readline) #if it matches "From:"
+	    elsif /From:.+$/.match(readline) #if it matches "From:"
 				count = count-1
 				input = "#{input}</pre></div>#{divright}<pre>#{countup+1})<br/>#{readline}"
 				
@@ -32,14 +28,14 @@ File.open('./web_log', 'r').each_line { |readline|
 				input = "#{input}#{readline}"
 			end
 		elsif (!/From:.+$/.match(readline) && !/To:.+$/.match(readline))
-			#input = "#{input}#{readline}"
+			#input = "#{input}</pre>"
 			break
 		else
 			break	
 		end
 	end
 }
-input = "#{input}</pre>"
+input = "#{input}</pre></div>#{divleft}Made by <a href='https://twitter.com/JBerenhaus'>@JBerenhaus</a>, <a href='https://twitter.com/j__eng'>@j__eng</a>, and <a href='https://twitter.com/wattstopher'>@wattstopher</a> at <a href='http://www.mchacks.io'>McHacks 2014</a></div>"
 File.open('/var/www/index.html','w'){ |writeFile|
 	writeFile.write("#{input}")
 }

@@ -1,1 +1,1 @@
-watch -n 30 ruby populate_website.rb
+watch -n 15 ruby populate_website.rb
